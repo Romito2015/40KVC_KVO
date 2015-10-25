@@ -112,7 +112,7 @@
     [self.student clearData];
     [self fillLabelsWithStudentProperties];
     
-    NSLog(@"########## UPDATE DATA ##########");
+    NSLog(@"########## CLEAR DATA ##########");
 }
 
 #pragma mark - KVO methods
