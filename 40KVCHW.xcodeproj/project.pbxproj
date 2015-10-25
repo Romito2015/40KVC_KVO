@@ -19,6 +19,9 @@
 		B35B8C881BDA3CAD007413BB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35B8C701BDA3CAD007413BB /* UIKit.framework */; };
 		B35B8C901BDA3CAD007413BB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B35B8C8E1BDA3CAD007413BB /* InfoPlist.strings */; };
 		B35B8C921BDA3CAD007413BB /* _0KVCHWTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B35B8C911BDA3CAD007413BB /* _0KVCHWTests.m */; };
+		B35B8C9D1BDA4C36007413BB /* RSStudent.m in Sources */ = {isa = PBXBuildFile; fileRef = B35B8C9C1BDA4C36007413BB /* RSStudent.m */; };
+		B35B8C9F1BDA52E7007413BB /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B35B8C9E1BDA52E7007413BB /* MainStoryboard.storyboard */; };
+		B38642531BDA724200C6173C /* RSTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B38642521BDA724200C6173C /* RSTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,11 @@
 		B35B8C8D1BDA3CAD007413BB /* 40KVCHWTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "40KVCHWTests-Info.plist"; sourceTree = "<group>"; };
 		B35B8C8F1BDA3CAD007413BB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B35B8C911BDA3CAD007413BB /* _0KVCHWTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _0KVCHWTests.m; sourceTree = "<group>"; };
+		B35B8C9B1BDA4C36007413BB /* RSStudent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSStudent.h; sourceTree = "<group>"; };
+		B35B8C9C1BDA4C36007413BB /* RSStudent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSStudent.m; sourceTree = "<group>"; };
+		B35B8C9E1BDA52E7007413BB /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
+		B38642511BDA724200C6173C /* RSTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RSTableViewController.h; path = ../RSTableViewController.h; sourceTree = "<group>"; };
+		B38642521BDA724200C6173C /* RSTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSTableViewController.m; path = ../RSTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +117,11 @@
 			children = (
 				B35B8C7B1BDA3CAD007413BB /* RSAppDelegate.h */,
 				B35B8C7C1BDA3CAD007413BB /* RSAppDelegate.m */,
+				B38642511BDA724200C6173C /* RSTableViewController.h */,
+				B38642521BDA724200C6173C /* RSTableViewController.m */,
+				B35B8C9E1BDA52E7007413BB /* MainStoryboard.storyboard */,
+				B35B8C9B1BDA4C36007413BB /* RSStudent.h */,
+				B35B8C9C1BDA4C36007413BB /* RSStudent.m */,
 				B35B8C7E1BDA3CAD007413BB /* Images.xcassets */,
 				B35B8C731BDA3CAD007413BB /* Supporting Files */,
 			);
@@ -220,6 +233,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B35B8C9F1BDA52E7007413BB /* MainStoryboard.storyboard in Resources */,
 				B35B8C771BDA3CAD007413BB /* InfoPlist.strings in Resources */,
 				B35B8C7F1BDA3CAD007413BB /* Images.xcassets in Resources */,
 			);
@@ -242,6 +256,8 @@
 			files = (
 				B35B8C791BDA3CAD007413BB /* main.m in Sources */,
 				B35B8C7D1BDA3CAD007413BB /* RSAppDelegate.m in Sources */,
+				B38642531BDA724200C6173C /* RSTableViewController.m in Sources */,
+				B35B8C9D1BDA4C36007413BB /* RSStudent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,6 +454,7 @@
 				B35B8C971BDA3CAD007413BB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B35B8C981BDA3CAD007413BB /* Build configuration list for PBXNativeTarget "40KVCHWTests" */ = {
 			isa = XCConfigurationList;
@@ -446,6 +463,7 @@
 				B35B8C9A1BDA3CAD007413BB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
