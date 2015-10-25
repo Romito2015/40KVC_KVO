@@ -20,6 +20,8 @@
  4. Повесте обсервера на все пропертисы студента и выводите в консоль каждый раз, когда проперти меняется
  5. Также сделайте метод "сброс", который сбрасывает все пропертисы, а в самом методе не используйте сеттеры, сделайте все через айвары, но сделайте так, чтобы обсервер узнал когда и что меняется. (типо как в уроке)
  
+ */
+/*
  Мастер.
  
  забудьте про UI
@@ -44,6 +46,8 @@
 
 @property (strong, nonatomic) RSStudent *student;
 
+@property (strong, nonatomic) NSMutableArray *studentsArray;
+
 @end
 
 @implementation RSTableViewController
@@ -60,10 +64,72 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.student = [[RSStudent alloc] init];
-    [self.student generateDataForStudent];
-    [self fillLabelsWithStudentProperties];
-    [self addObserversForStudentProperties];
+    RSStudent *student1 = [[RSStudent alloc] init];
+    [student1 generateDataForStudent];
+    
+    RSStudent *student2 = [[RSStudent alloc] init];
+    [student2 generateDataForStudent];
+    
+    RSStudent *student3 = [[RSStudent alloc] init];
+    [student3 generateDataForStudent];
+    
+    RSStudent *student4 = [[RSStudent alloc] init];
+    [student4 generateDataForStudent];
+
+    [self addObserversForStudentProperties:student1];
+    
+    
+    student1.friend = student2;
+    student2.friend = student3;
+    student3.friend = student4;
+    student4.friend = student1;
+    
+    self.studentsArray = [NSMutableArray arrayWithArray:@[student1, student2, student3, student4]];
+    
+    [student4 addObserver:self forKeyPath:@"dateOfBirth" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    [student4 addObserver:self forKeyPath:@"firstName" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+     
+    NSString *nextStudentPathComponent = @"";
+    
+    RSStudent *tempStudent = [[RSStudent alloc] init];
+    
+    for (int i = 0; i < [self.studentsArray count]; i++) {
+        
+        if (i == 0) {
+            
+            nextStudentPathComponent = [nextStudentPathComponent stringByAppendingString:@"friend"];
+            
+            [tempStudent generateDataForStudent];
+            
+            NSString *firstName = [nextStudentPathComponent stringByAppendingString:@".firstName"];
+            NSString *dateOfBirth = [nextStudentPathComponent stringByAppendingString:@".dateOfBirth"];
+            NSString *grade = [nextStudentPathComponent stringByAppendingString:@".grade"];
+            
+            [student4 setValue:tempStudent.firstName forKeyPath:firstName];
+            [student4 setValue:tempStudent.dateOfBirth forKeyPath:dateOfBirth];
+            [student4 setValue:@(tempStudent.grade) forKeyPath:grade];
+            
+            
+        } else {
+            nextStudentPathComponent = [nextStudentPathComponent stringByAppendingString:@".friend"];
+            
+            [tempStudent generateDataForStudent];
+            
+            NSString *firstName = [nextStudentPathComponent stringByAppendingString:@".firstName"];
+            NSString *dateOfBirth = [nextStudentPathComponent stringByAppendingString:@".dateOfBirth"];
+            NSString *grade = [nextStudentPathComponent stringByAppendingString:@".grade"];
+            
+            [student4 setValue:tempStudent.firstName forKeyPath:firstName];
+            [student4 setValue:tempStudent.dateOfBirth forKeyPath:dateOfBirth];
+            [student4 setValue:@(tempStudent.grade) forKeyPath:grade];
+        
+        }
+        
+    }
+
+    [student4 removeObserver:self forKeyPath:@"dateOfBirth"];
+    [student4 removeObserver:self forKeyPath:@"firstName"];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -100,11 +166,11 @@
     [self.student generateDataForStudent];
     [self fillLabelsWithStudentProperties];
     
-    [self removeObserversForStudentProperties];
+    //[self removeObserversForStudentProperties];
     
     NSLog(@"########## UPDATE DATA ##########");
     
-    [self addObserversForStudentProperties];
+    //[self addObserversForStudentProperties];
 }
 
 - (IBAction)actionClear:(UIButton *)sender {
@@ -117,22 +183,22 @@
 
 #pragma mark - KVO methods
 
-- (void) addObserversForStudentProperties {
+- (void) addObserversForStudentProperties:(RSStudent *)student {
     
-    [self.student addObserver:self forKeyPath:@"firstName" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-    [self.student addObserver:self forKeyPath:@"lastName" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-    [self.student addObserver:self forKeyPath:@"dateOfBirth" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-    [self.student addObserver:self forKeyPath:@"gender" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-    [self.student addObserver:self forKeyPath:@"grade" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    [student addObserver:self forKeyPath:@"firstName" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    [student addObserver:self forKeyPath:@"lastName" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    [student addObserver:self forKeyPath:@"dateOfBirth" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    [student addObserver:self forKeyPath:@"gender" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    [student addObserver:self forKeyPath:@"grade" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 }
 
-- (void) removeObserversForStudentProperties {
+- (void) removeObserversForStudentProperties:(RSStudent *)student {
     
-    [self.student removeObserver:self forKeyPath:@"firstName"];
-    [self.student removeObserver:self forKeyPath:@"lastName"];
-    [self.student removeObserver:self forKeyPath:@"dateOfBirth"];
-    [self.student removeObserver:self forKeyPath:@"gender"];
-    [self.student removeObserver:self forKeyPath:@"grade"];
+    [student removeObserver:self forKeyPath:@"firstName"];
+    [student removeObserver:self forKeyPath:@"lastName"];
+    [student removeObserver:self forKeyPath:@"dateOfBirth"];
+    [student removeObserver:self forKeyPath:@"gender"];
+    [student removeObserver:self forKeyPath:@"grade"];
 }
 
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -142,6 +208,11 @@
 
 
 //////////////////////////////////////////////// MASTER LAVEL STARTS ///////////////////////////////////////////////
+
+
+
+
+
 
 
 @end

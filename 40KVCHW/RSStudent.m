@@ -101,6 +101,11 @@ static NSString* lastNames[] = {
     [self didChangeValueForKey:@"grade"];
 }
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"NAME %@ %@\nDate of Birth: %@\nGrade: %1.2f\nGender:%d", self.firstName, self.lastName, self.dateOfBirth, self.grade, self.gender];
+}
+
 
 # pragma mark - KVC methods
 
