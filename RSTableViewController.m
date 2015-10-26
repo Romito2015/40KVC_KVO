@@ -63,7 +63,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    /*
     RSStudent *student1 = [[RSStudent alloc] init];
     [student1 generateDataForStudent];
     
@@ -75,60 +75,31 @@
     
     RSStudent *student4 = [[RSStudent alloc] init];
     [student4 generateDataForStudent];
-
-    [self addObserversForStudentProperties:student1];
+    */
     
+    NSMutableArray *studentsArray = [NSMutableArray array];
     
-    student1.friend = student2;
-    student2.friend = student3;
-    student3.friend = student4;
-    student4.friend = student1;
-    
-    self.studentsArray = [NSMutableArray arrayWithArray:@[student1, student2, student3, student4]];
-    
-    [student4 addObserver:self forKeyPath:@"dateOfBirth" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-    [student4 addObserver:self forKeyPath:@"firstName" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-     
-    NSString *nextStudentPathComponent = @"";
-    
-    RSStudent *tempStudent = [[RSStudent alloc] init];
-    
-    for (int i = 0; i < [self.studentsArray count]; i++) {
-        
-        if (i == 0) {
-            
-            nextStudentPathComponent = [nextStudentPathComponent stringByAppendingString:@"friend"];
-            
-            [tempStudent generateDataForStudent];
-            
-            NSString *firstName = [nextStudentPathComponent stringByAppendingString:@".firstName"];
-            NSString *dateOfBirth = [nextStudentPathComponent stringByAppendingString:@".dateOfBirth"];
-            NSString *grade = [nextStudentPathComponent stringByAppendingString:@".grade"];
-            
-            [student4 setValue:tempStudent.firstName forKeyPath:firstName];
-            [student4 setValue:tempStudent.dateOfBirth forKeyPath:dateOfBirth];
-            [student4 setValue:@(tempStudent.grade) forKeyPath:grade];
-            
-            
-        } else {
-            nextStudentPathComponent = [nextStudentPathComponent stringByAppendingString:@".friend"];
-            
-            [tempStudent generateDataForStudent];
-            
-            NSString *firstName = [nextStudentPathComponent stringByAppendingString:@".firstName"];
-            NSString *dateOfBirth = [nextStudentPathComponent stringByAppendingString:@".dateOfBirth"];
-            NSString *grade = [nextStudentPathComponent stringByAppendingString:@".grade"];
-            
-            [student4 setValue:tempStudent.firstName forKeyPath:firstName];
-            [student4 setValue:tempStudent.dateOfBirth forKeyPath:dateOfBirth];
-            [student4 setValue:@(tempStudent.grade) forKeyPath:grade];
-        
-        }
-        
+    for (int i = 0; i < 15; i++) {
+        RSStudent *student = [[RSStudent alloc] init];
+        [student generateDataForStudent];
+        [studentsArray addObject:student];
     }
-
-    [student4 removeObserver:self forKeyPath:@"dateOfBirth"];
-    [student4 removeObserver:self forKeyPath:@"firstName"];
+    
+    NSArray * arrayOfNames = [studentsArray valueForKeyPath:@"@unionOfObjects.firstName"];
+ 
+    NSLog(@"First names :%@", arrayOfNames);
+    
+    NSDate *minBirthDate = [studentsArray valueForKeyPath:@"@min.dateOfBirth"];
+    NSLog(@"The oldest student birth date: %@",minBirthDate);
+    
+    NSDate *maxBirthDate = [studentsArray valueForKeyPath:@"@max.dateOfBirth"];
+    NSLog(@"The youngest student birth date: %@",maxBirthDate);
+    
+    NSNumber *sumGrade = [studentsArray valueForKeyPath:@"@sum.grade"];
+    NSLog(@"The summary grade of students: %@",sumGrade);
+    
+    NSNumber *averageGrade = [studentsArray valueForKeyPath:@"@avg.grade"];
+    NSLog(@"The average grade of students: %@",averageGrade);
     
 }
 
